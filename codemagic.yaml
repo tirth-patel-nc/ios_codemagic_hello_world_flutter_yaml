@@ -18,10 +18,6 @@ workflows:
             ios_signing:
                 distribution_type: app_store
                 bundle_identifier: "com.exam.codemagichelloworldflutter"
-                provisioning_profiles:
-                    - codemagic_ios
-                certificates:
-                    - codemagic_ios
 
         scripts:
             - name: Set up code signing settings on Xcode project
