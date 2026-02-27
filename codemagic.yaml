@@ -21,6 +21,8 @@ workflows:
                     - codemagic_ios
                 certificates:
                     - codemagic_ios
+            vars:
+                APP_STORE_APPLE_ID: 6759789849
 
         scripts:
             - name: Set up code signing settings on Xcode project
