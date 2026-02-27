@@ -43,7 +43,7 @@ workflows:
 
         publishing:
             app_store_connect:
-                auth: Codemagic Hello World Flutter
+                auth: integration
                 submit_to_testflight: true
             slack:
                 channel: '#codemagic-hello-world-stack'
