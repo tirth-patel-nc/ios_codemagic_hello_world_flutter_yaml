@@ -20,6 +20,7 @@ workflows:
                 bundle_identifier: com.exam.codemagichelloworldflutter
             vars:
                 APP_STORE_APPLE_ID: 6759789849
+                BUNDLE_ID: "com.exam.codemagichelloworldflutter" 
 
         scripts:
             - name: Set up code signing settings on Xcode project
