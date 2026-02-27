@@ -1,0 +1,56 @@
+workflows:
+    ios-workflow:
+        name: iOS Workflow
+        max_build_duration: 120
+        instance_type: mac_mini_m4
+        integrations:
+            app_store_connect: codemagic
+        triggering:
+            events:                      
+                - push
+
+        cache:
+            cache_paths:
+                - ~/Library/Developer/Xcode/DerivedData/CompilationCache.noindex
+
+        environment:
+            flutter: stable
+            ios_signing:
+                distribution_type: app_store
+                bundle_identifier: "com.exam.codemagichelloworldflutter"
+                provisioning_profiles:
+                    - codemagic_ios
+                certificates:
+                    - codemagic_ios
+
+        scripts:
+            - name: Set up code signing settings on Xcode project
+              script: | 
+                xcode-project use-profiles --custom-export-options='{"testFlightInternalTestingOnly": true}'  
+            - name: Get Flutter packages
+              script: | 
+                flutter pub get
+            - name: Install pods
+              script: | 
+                find . -name "Podfile" -execdir pod install \;
+            - name: Build ipa for distribution with Flutter
+              script: | 
+                flutter build ipa --release
+        artifacts:
+            - build/ios/ipa/*.ipa
+            - /tmp/xcodebuild_logs/*.log
+            - flutter_drive.log
+
+        publishing:
+            app_store_connect:
+                auth: Codemagic Hello World Flutter
+                submit_to_testflight: true
+            slack:
+                channel: '#codemagic-hello-world-stack'
+                notify_on_build_start: false
+                notify:
+                    success: false
+                    failure: false
+
+
+
