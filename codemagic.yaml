@@ -34,7 +34,8 @@ workflows:
                 find . -name "Podfile" -execdir pod install \;
             - name: Build ipa for distribution with Flutter
               script: | 
-                flutter build ipa --release
+                flutter build ipa --release \
+                    --export-options-plist=/Users/builder/export_options.plist
         artifacts:
             - build/ios/ipa/*.ipa
             - /tmp/xcodebuild_logs/*.log
