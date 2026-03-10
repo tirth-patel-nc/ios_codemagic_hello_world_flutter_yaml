@@ -33,20 +33,22 @@ workflows:
             - name: Install pods
               script: | 
                 find . -name "Podfile" -execdir pod install \;
-            - name: Build ipa for distribution with Flutter
-              script: | 
-                xcodebuild build \
-                  -workspace ios/Runner.xcworkspace \
-                  -scheme Runner \
+            - name: Build unsigned .app
+              script: |
+                xcodebuild -workspace "ios/Runner.xcworkspace" \
+                  -scheme "Runner" \
                   -sdk iphonesimulator \
+                  -destination 'platform=iOS Simulator,name=iPhone 15 Pro,OS=18.1' \
                   -configuration Debug \
-                  ARCHS=arm64 \
-                  CODE_SIGNING_ALLOWED=NO
+                  CODE_SIGN_IDENTITY="" \
+                  CODE_SIGNING_REQUIRED=NO \
+                  CODE_SIGNING_ALLOWED=NO \
+                  -derivedDataPath ios/output
         artifacts:
             - build/ios/ipa/*.ipa
             - /tmp/xcodebuild_logs/*.log
             - flutter_drive.log
-            - /Users/builder/Library/Developer/Xcode/DerivedData/**/*.app
+            - ios/output/Build/Products/Debug-iphonesimulator/Runner.app
 
         publishing:
             app_store_connect:
