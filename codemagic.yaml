@@ -15,6 +15,7 @@ workflows:
 
         environment:
             flutter: stable
+            xcode: 16.2
             ios_signing:
                 distribution_type: app_store
                 bundle_identifier: com.exam.codemagichelloworldflutter
@@ -37,7 +38,7 @@ workflows:
                 xcodebuild -workspace "ios/Runner.xcworkspace" \
                   -scheme "Runner" \
                   -sdk iphonesimulator \
-                  -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.1' \
+                  -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.2' \
                   -configuration Debug \
                   CODE_SIGN_IDENTITY="" \
                   CODE_SIGNING_REQUIRED=NO \
